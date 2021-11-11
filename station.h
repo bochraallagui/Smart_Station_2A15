@@ -1,7 +1,7 @@
 #ifndef STATION_H
 #define STATION_H
 #include <QString>
-
+#include <QSqlQueryModel>
 class Station
 {
 public:
@@ -15,6 +15,10 @@ public:
     void setadresse(QString);
     void setdimension(int);
     void setligne(int);
+    bool ajouter();
+    bool supprimer(QString);
+    QSqlQueryModel* afficher();
+    bool modifier();
 private:
     QString nom ;
     QString adresse ;
