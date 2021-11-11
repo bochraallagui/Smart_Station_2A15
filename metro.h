@@ -6,21 +6,20 @@
 #include <QMessageBox>
 
 
-class metro
+class Metro
 {
         int matricule;
         int nbr_places;
-        int kilometrage ;
+        int kilometrage;
         int nbr_passagers;
 
 
 public:
-    metro();
+        Metro();
 
-    metro(int, int, int, int );
+    Metro(int, int, int, int );
         //
-
-        int  getmatricule(){return matricule;}
+      int  getmatricule(){return matricule;}
         int  getnbr_places(){return nbr_places;}
         int  getkilometrage(){return kilometrage;}
         int  getnbr_passagers(){return nbr_passagers;}
@@ -28,19 +27,18 @@ public:
         //
 
         void setmatricule(int mat){matricule=mat;}
-        void setid(int places){nbr_places=places;}
-        void setage(int kilo){kilometrage=kilo;}
-        void setpoids(int passagers){nbr_passagers=passagers;}
+        void setnbr_places(int places){nbr_places=places;}
+        void setkilometrage(int kilo){kilometrage=kilo;}
+        void setnbr_passagers(int passagers){nbr_passagers=passagers;}
 
         //
         bool ajouter();
         QSqlQueryModel * afficher();
-        bool supprimer (int matricule);
-
-
-
-
-
+        bool supprimer (int);
+        bool modifier (int);
+        QSqlQueryModel *trimatricule();
+        QSqlQueryModel *triplaces();
+        QSqlQueryModel *trikilometrage();
 };
 
 #endif // METRO_H
