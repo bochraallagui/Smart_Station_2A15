@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     connection.cpp \
-    metro.cpp
+    metro.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
         mainwindow.h \
     connection.h \
-    metro.h
+    metro.h \
+    qcustomplot.h
 
 FORMS += \
         mainwindow.ui
@@ -42,3 +44,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+QT       += core gui sql printsupport multimedia
+QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport

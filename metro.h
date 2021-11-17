@@ -38,7 +38,10 @@ public:
         bool modifier (int);
         QSqlQueryModel *trimatricule();
         QSqlQueryModel *triplaces();
-        QSqlQueryModel *trikilometrage();
+        QSqlQueryModel *tripassagers();
+        QSqlQueryModel *recherche(int matricule);
+        void statistique(QVector<double>* ticks,QVector<QString> *labels);
+        bool affecter(int matricule,int id);
 };
 
 #endif // METRO_H

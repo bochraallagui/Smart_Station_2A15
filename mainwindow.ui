@@ -31,7 +31,7 @@
      <string notr="true">alternate-background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -193,6 +193,29 @@
         </rect>
        </property>
       </widget>
+      <widget class="QPushButton" name="AFFECTER">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>400</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>affecter</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="comboBox">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>400</y>
+         <width>73</width>
+         <height>22</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_13">
       <property name="geometry">
@@ -244,7 +267,7 @@
      <widget class="QPushButton" name="pb_rechercher">
       <property name="geometry">
        <rect>
-        <x>860</x>
+        <x>950</x>
         <y>520</y>
         <width>93</width>
         <height>28</height>
@@ -257,10 +280,10 @@
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
-        <x>560</x>
+        <x>600</x>
         <y>140</y>
-        <width>591</width>
-        <height>311</height>
+        <width>521</width>
+        <height>291</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -280,7 +303,7 @@
        <string>trier places</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pb_trier_kilometrage">
+     <widget class="QPushButton" name="pb_trier_nbrpassagers">
       <property name="geometry">
        <rect>
         <x>662</x>
@@ -290,7 +313,33 @@
        </rect>
       </property>
       <property name="text">
-       <string>trier kilometrage</string>
+       <string>trier passagers</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pb_imprimer_2">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>600</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>imprimer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pb_pdf_2">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>560</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>export to pdf</string>
       </property>
      </widget>
     </widget>
@@ -298,13 +347,23 @@
      <attribute name="title">
       <string>Statistiques</string>
      </attribute>
+     <widget class="QCustomPlot" name="plot" native="true">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>20</y>
+        <width>1061</width>
+        <height>631</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="">
      <attribute name="title">
       <string>Affectation</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab_4">
+    <widget class="QWidget" name="widget_2">
      <attribute name="title">
       <string>Imprimer</string>
      </attribute>
@@ -336,6 +395,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

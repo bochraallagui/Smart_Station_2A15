@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include"metro.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -28,7 +29,21 @@ private slots:
 
 
 
-   void on_pb_trier_kilometrage_clicked();
+   void on_pb_trier_nbrpassagers_clicked();
+
+
+
+
+   void on_pb_rechercher_clicked();
+
+   void on_tabWidget_currentChanged(int index);
+
+
+   void on_pb_imprimer_2_clicked();
+
+   void on_pb_pdf_2_clicked();
+
+   void on_AFFECTER_clicked();
 
 private:
    Ui::MainWindow *ui;
