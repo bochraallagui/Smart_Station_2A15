@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql multimedia multimediawidgets printsupport charts serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,15 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    enseignant.cpp \
         main.cpp \
         mainwindow.cpp \
-    connection.cpp
+    connection.cpp \
+    trajet.cpp
 
 HEADERS += \
-    enseignant.h \
         mainwindow.h \
-    connection.h
+    connection.h \
+    trajet.h
 
 FORMS += \
         mainwindow.ui
