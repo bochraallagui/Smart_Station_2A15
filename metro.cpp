@@ -78,7 +78,7 @@ bool Metro::modifier(int matricule)
 }
 
 
-QSqlQueryModel* Metro::trimatricule()
+QSqlQueryModel* Metro::trimetro()
 {
     QSqlQueryModel *model=new QSqlQueryModel();
             model->setQuery("select * from METRO order by MATRICULE");
@@ -93,34 +93,8 @@ QSqlQueryModel* Metro::trimatricule()
 }
 
 
-QSqlQueryModel* Metro::triplaces()
-{
-    QSqlQueryModel *model=new QSqlQueryModel();
-            model->setQuery("select * from METRO order by NBRPLACES");
-            model->setHeaderData(0,Qt::Horizontal,QObject::tr("matricule"));
-           model->setHeaderData(1,Qt::Horizontal,QObject::tr("nbr_places"));
-            model->setHeaderData(2,Qt::Horizontal,QObject::tr("kilometrage"));
-             model->setHeaderData(3,Qt::Horizontal,QObject::tr("nbr_passagers"));
-   return model;
 
-}
-
-
-QSqlQueryModel* Metro::tripassagers()
-{
-    QSqlQueryModel *model=new QSqlQueryModel();
-            model->setQuery("select * from METRO order by NBRASSAGERS");
-            model->setHeaderData(0,Qt::Horizontal,QObject::tr("matricule"));
-            model->setHeaderData(3,Qt::Horizontal,QObject::tr("nbr_places"));
-            model->setHeaderData(2,Qt::Horizontal,QObject::tr("kilometrage"));
-            model->setHeaderData(1,Qt::Horizontal,QObject::tr("nbr_passagers"));
-
-
-   return model;
-
-}
-
-QSqlQueryModel* Metro::recherche(int matricule)
+QSqlQueryModel* Metro::recherchemetro(int matricule)
 
 {
 
@@ -142,6 +116,9 @@ QSqlQueryModel* Metro::recherche(int matricule)
    return model;
 
 }
+
+
+
 
 
 void Metro::statistique(QVector<double>* ticks,QVector<QString> *labels)

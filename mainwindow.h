@@ -25,11 +25,6 @@ private slots:
 
    void on_pb_trier_matricule_clicked();
 
-   void on_pb_trier_nbrplaces_clicked();
-
-
-
-   void on_pb_trier_nbrpassagers_clicked();
 
 
 
@@ -39,11 +34,10 @@ private slots:
    void on_tabWidget_currentChanged(int index);
 
 
-   void on_pb_imprimer_2_clicked();
-
    void on_pb_pdf_2_clicked();
 
    void on_AFFECTER_clicked();
+
 
 private:
    Ui::MainWindow *ui;

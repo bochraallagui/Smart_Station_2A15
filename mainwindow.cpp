@@ -106,20 +106,7 @@ void MainWindow::on_pb_modifier_clicked()
 
 void MainWindow::on_pb_trier_matricule_clicked()
 {
- ui->tableView->setModel(M.trimatricule());
-}
-
-
-void MainWindow::on_pb_trier_nbrplaces_clicked()
-{
- ui->tableView->setModel(M.triplaces());
-}
-
-
-
-void MainWindow::on_pb_trier_nbrpassagers_clicked()
-{
- ui->tableView->setModel(M.tripassagers());
+ ui->tableView->setModel(M.trimetro());
 }
 
 
@@ -137,11 +124,12 @@ void MainWindow::on_pb_rechercher_clicked()
 
        } else {
 
-       ui->tableView->setModel(M.recherche(matricule));
+       ui->tableView->setModel(M.recherchemetro(matricule));
 
        }
 
 }
+
 
 
 
@@ -218,69 +206,89 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_pb_pdf_2_clicked()
 {
-    QString strStream;
-                        QTextStream out(&strStream);
+    QSqlDatabase db;
+                   QTableView table_menu;
+                   QSqlQueryModel * Modal=new  QSqlQueryModel();
 
-                        const int rowCount = ui->tableView->model()->rowCount();
-                        const int columnCount = ui->tableView->model()->columnCount();
-                        out <<  "<html>\n"
-                                "<head>\n"
+                   QSqlQuery qry;
+                    qry.prepare("SELECT * FROM METRO ");
+                    qry.exec();
+                    Modal->setQuery(qry);
+                    table_menu.setModel(Modal);
+
+
+                    db.close();
+
+                    QString strStream;
+                    QTextStream out(&strStream);
+
+
+                    const int rowCount = table_menu.model()->rowCount();
+                    const int columnCount =  table_menu.model()->columnCount();
+
+                    const QString strTitle ="Document";
+
+
+                    out <<  "<html>\n"
+                            "<img src='C:/Users/lenovo/Downloads/SEMESTRE 1/PROJET C++/sncf.jpg' height='120' width='120'/>"
+                        "<head>\n"
                             "<meta Content=\"Text/html; charset=Windows-1251\">\n"
-                        <<  QString("<title>%1</title>\n").arg("strTitle")
+                        <<  QString("<title>%1</title>\n").arg(strTitle)
                         <<  "</head>\n"
-                          "<body bgcolor=#ffffff link=#5000A0>\n"
+                        "<body bgcolor=#ffffff link=#5000A0>\n"
+                       << QString("<h3 style=\" font-size: 50px; font-family: Arial, Helvetica, sans-serif; color: #e80e32; font-weight: lighter; text-align: center;\">%1</h3>\n").arg("LISTE DES METROS")
+                       <<"<br>"
 
-                         //     "<align='right'> " << datefich << "</align>"
-               "<center> <H1>Liste Des Metros </H1></br></br><table border=1 cellspacing=0 cellpadding=2>\n";
+                       <<"<table border=1 cellspacing=0 cellpadding=2 width=\"100%\">\n";
+                    out << "<thead><tr bgcolor=#f0f0f0>";
+                    for (int column = 0; column < columnCount; column++)
+                        if (!table_menu.isColumnHidden(column))
+                            out << QString("<th>%1</th>").arg(table_menu.model()->headerData(column, Qt::Horizontal).toString());
+                    out << "</tr></thead>\n";
 
-                               // headers
-                out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
-                for (int column = 0; column < columnCount; column++)
-                if (!ui->tableView->isColumnHidden(column))
-                out << QString("<th>%1</th>").arg(ui->tableView->model()->headerData(column, Qt::Horizontal).toString());
-                out << "</tr></thead>\n";
+                    for (int row = 0; row < rowCount; row++) {
+                        out << "<tr>";
+                        for (int column = 0; column < columnCount; column++) {
+                            if (!table_menu.isColumnHidden(column)) {
+                                QString data = table_menu.model()->data(table_menu.model()->index(row, column)).toString().simplified();
+                                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                            }
+                        }
+                        out << "</tr>\n";
+                    }
+                    out <<  "</table>\n"
+                            "<br><br>"
+                            <<"<br>"
+                            <<"<table border=1 cellspacing=0 cellpadding=2>\n";
 
-                // data table
-                for (int row = 0; row < rowCount; row++) {
-                out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
-                for (int column = 0; column < columnCount; column++) {
-                if (!ui->tableView->isColumnHidden(column)) {
-     QString data = ui->tableView->model()->data(ui->tableView->model()->index(row, column)).toString().simplified();
-         out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
-       }
-       }
-    out << "</tr>\n";
-       }
-    out <<  "</table> </center>\n"
-            "</body>\n"
-            "</html>\n";
-      QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Sauvegarder en PDF", QString(), "*.pdf");
-                    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+                        out << "<thead><tr bgcolor=#f0f0f0>";
 
-      QPrinter printer (QPrinter::PrinterResolution);
-      printer.setOutputFormat(QPrinter::PdfFormat);
-      printer.setPaperSize(QPrinter::A4);
-      printer.setOutputFileName(fileName);
+                            out <<  "</table>\n"
 
-      QTextDocument doc;
-     doc.setHtml(strStream);
-     doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
-      doc.print(&printer);
+                        "</body>\n"
+                        "</html>\n";
+
+                    QTextDocument *document = new QTextDocument();
+                    document->setHtml(strStream);
+
+                    QPrinter printer;
+                    QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                    if (dialog->exec() == QDialog::Accepted) {
+
+                        document->print(&printer);
+                    }
+
+                    printer.setOutputFormat(QPrinter::PdfFormat);
+                    printer.setPaperSize(QPrinter::A4);
+                    printer.setOutputFileName("/tmp/metro.pdf");
+                    printer.setPageMargins(QMarginsF(15, 15, 15, 15));
+
+                    delete document;
 }
 
 
 
-void MainWindow::on_pb_imprimer_2_clicked()
-{
-    QPrinter printer;
-                printer.setPrinterName("desiered printer name");
 
-              QPrintDialog dialog(&printer,this);
-
-                if(dialog.exec()== QDialog::Rejected)
-
-                    return;
-}
 
 void MainWindow::on_AFFECTER_clicked()
 {
@@ -331,3 +339,7 @@ void MainWindow::on_AFFECTER_clicked()
 
             }
 }
+
+
+
+

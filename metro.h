@@ -36,10 +36,8 @@ public:
         QSqlQueryModel * afficher();
         bool supprimer (int);
         bool modifier (int);
-        QSqlQueryModel *trimatricule();
-        QSqlQueryModel *triplaces();
-        QSqlQueryModel *tripassagers();
-        QSqlQueryModel *recherche(int matricule);
+        QSqlQueryModel *trimetro();
+        QSqlQueryModel *recherchemetro(int matricule);
         void statistique(QVector<double>* ticks,QVector<QString> *labels);
         bool affecter(int matricule,int id);
 };

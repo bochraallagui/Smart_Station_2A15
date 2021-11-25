@@ -31,7 +31,7 @@
      <string notr="true">alternate-background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -254,8 +254,8 @@
      <widget class="QPushButton" name="pb_trier_matricule">
       <property name="geometry">
        <rect>
-        <x>662</x>
-        <y>520</y>
+        <x>680</x>
+        <y>570</y>
         <width>101</width>
         <height>28</height>
        </rect>
@@ -267,14 +267,14 @@
      <widget class="QPushButton" name="pb_rechercher">
       <property name="geometry">
        <rect>
-        <x>950</x>
-        <y>520</y>
-        <width>93</width>
+        <x>940</x>
+        <y>570</y>
+        <width>141</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>rechercher</string>
+       <string>recherche matricule</string>
       </property>
      </widget>
      <widget class="QTableView" name="tableView">
@@ -290,56 +290,17 @@
        <string notr="true">background-color: rgb(0, 255, 255);</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pb_trier_nbrplaces">
-      <property name="geometry">
-       <rect>
-        <x>662</x>
-        <y>560</y>
-        <width>101</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>trier places</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pb_trier_nbrpassagers">
-      <property name="geometry">
-       <rect>
-        <x>662</x>
-        <y>600</y>
-        <width>101</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>trier passagers</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pb_imprimer_2">
-      <property name="geometry">
-       <rect>
-        <x>950</x>
-        <y>600</y>
-        <width>93</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>imprimer</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pb_pdf_2">
       <property name="geometry">
        <rect>
-        <x>950</x>
-        <y>560</y>
+        <x>810</x>
+        <y>570</y>
         <width>93</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>export to pdf</string>
+       <string>Imprimer pdf</string>
       </property>
      </widget>
     </widget>
@@ -357,16 +318,6 @@
        </rect>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="">
-     <attribute name="title">
-      <string>Affectation</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="widget_2">
-     <attribute name="title">
-      <string>Imprimer</string>
-     </attribute>
     </widget>
    </widget>
   </widget>
