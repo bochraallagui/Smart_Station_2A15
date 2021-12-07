@@ -6,27 +6,27 @@
 
 trajet::trajet()
 {
-code=0; depart=0; id=0; redandance=0; terminus="";
+prix=0; depart=""; id=0; duree=0; terminus="";
 }
 
 
-trajet::trajet(int id,int depart,int redandance,QString terminus,int code, QDate date_t)
-{this->code=code;this->depart=depart;this->id=id;this->redandance=redandance;this->terminus=terminus;this->date_t=date_t;}
+trajet::trajet(int id,QString depart,int duree,QString terminus,int prix, QDate date_t)
+{this->prix=prix;this->depart=depart;this->id=id;this->duree=duree;this->terminus=terminus;this->date_t=date_t;}
 
 
-int trajet:: getcode(){return code;}
-int trajet:: getdepart(){return depart;}
+int trajet:: getprix(){return prix;}
+QString trajet:: getdepart(){return depart;}
 int trajet:: getid(){return id;}
-int trajet::getredandance(){return redandance;}
+int trajet::getduree(){return duree;}
 QString trajet::getterminus(){return terminus;}
 QDate trajet::getdate(){return date_t;}
 
 
 
-void trajet:: setcode(int code){this->code=code;}
-void trajet:: setdepart(int depart){this->depart=depart;}
+void trajet:: setprix(int prix){this->prix=prix;}
+void trajet:: setdepart(QString depart){this->depart=depart;}
 void trajet:: setid(int id){this->id=id;}
-void trajet::setredandance(int redandance){this->redandance=redandance;}
+void trajet::setduree(int duree){this->duree=duree;}
 void trajet::setterminus(QString terminus){this->terminus=terminus;}
 void trajet::setdate(QDate date_t){this->date_t=date_t;}
 
@@ -34,14 +34,12 @@ bool trajet::ajouter()
 {
     QSqlQuery query;
     QString res =QString::number(id);
-
-    QString depart_string =QString::number(depart);
-    QString code_string=QString::number(code);
-    QString redandance_string =QString::number(redandance);
-    query.prepare("insert into TRAJET(ID , DEPART , REDANDANCE , TERMINUS, CODE, DATE_T) values(:id , :depart , :redandance ,:terminus ,:code,:date)");
+    QString code_string=QString::number(prix);
+    QString redandance_string =QString::number(duree);
+    query.prepare("insert into TRAJET(ID , DEPART , DUREE , TERMINUS, prix, DATE_T) values(:id , :depart , :redandance ,:terminus ,:code,:date)");
 
     query.bindValue(":id",res);
-    query.bindValue(":depart",depart_string);
+    query.bindValue(":depart",depart);
     query.bindValue(":code",code_string);
     query.bindValue(":terminus",terminus);
     query.bindValue(":redandance",redandance_string);
@@ -55,13 +53,13 @@ QSqlQueryModel *trajet::afficher ()
    QSqlQueryModel * model =new QSqlQueryModel();
 
     //model->setQuery("select * form trajet");
-   model->setQuery("SELECT id, depart , redandance , terminus , code, date_t FROM trajet");
+   model->setQuery("SELECT id, depart , duree , terminus , prix, date_t FROM trajet");
 
-    model->setHeaderData(0,Qt::Horizontal,QObject::tr("depart"));
-    model->setHeaderData(1,Qt::Horizontal,QObject::tr("code"));
-    model->setHeaderData(2,Qt::Horizontal,QObject::tr("ID"));
+    model->setHeaderData(0,Qt::Horizontal,QObject::tr("id"));
+    model->setHeaderData(1,Qt::Horizontal,QObject::tr("depart"));
+    model->setHeaderData(2,Qt::Horizontal,QObject::tr("durée"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("terminus"));
-    model->setHeaderData(4,Qt::Horizontal,QObject::tr("redandance"));
+    model->setHeaderData(4,Qt::Horizontal,QObject::tr("prix"));
     model->setHeaderData(5,Qt::Horizontal,QObject::tr("date"));
     return model ;
 
@@ -74,11 +72,11 @@ query.prepare("Delete from trajet where ID= :id");
 query.bindValue(":id",res);
 return query.exec();
 }
-bool trajet:: modifier(int i ,int d,int r,QString t,int c,QDate dat)
+bool trajet:: modifier(int i ,QString d,int r,QString t,int c,QDate dat)
  {
      QSqlQuery query ;
      QString id_string = QString::number(i);
-     query.prepare("update trajet set depart=:depart,code=:code,redandance=:redandance,terminus=:terminus,date_t=:date where id=:id");
+     query.prepare("update trajet set depart=:depart,prix=:code,duree=:redandance,terminus=:terminus,date_t=:date where id=:id");
      query.bindValue(":id",id_string);
      query.bindValue(":depart",d);
      query.bindValue(":code",c);
@@ -103,12 +101,12 @@ QSqlQueryModel * trajet::trier(int choix)
             }
             case 2:
             {
-              ch="code";
+              ch="prix";
               break;
             }
             case 3:
             {
-              ch="redandance";
+              ch="duree";
               break;
             }
             default:
@@ -134,14 +132,14 @@ QSqlQueryModel * trajet::rechercher(int choix)
         }
         case 2:
         {
-          ch="code";
-          res=QString::number(code);
+          ch="prix";
+          res=QString::number(prix);
           break;
         }
         case 3:
         {
-          ch="terminus";
-          res="'"+terminus+"'";
+          ch="duree";
+          res=QString::number(duree);
           break;
         }
         default:
@@ -166,7 +164,7 @@ void trajet::statistiques(QWidget * w)
            nb2= query2.value(0).toInt();
         }
         QSqlQuery query3("SELECT COUNT(*) FROM trajet WHERE terminus='Bizerte'");
-        while(query2.next())
+        while(query3.next())
         {
            nb3= query3.value(0).toInt();
         }
@@ -197,7 +195,7 @@ void trajet::statistiques(QWidget * w)
     chartview->setParent(w);
 }
 
-bool trajet::export_msg()
+bool trajet::export_txt()
 {
     bool test=false;
     QSqlQueryModel * model=afficher();
@@ -219,25 +217,10 @@ bool trajet::export_msg()
     {
         test=true;
         QTextStream out(&txtFile);
-        out << "depart------code------id-----terminus------redandance-----date\n";
+        out << "id||depart||durée||terminus||prix||date\n";
         out << textData;
         txtFile.close();
     }
     return test;
 }
 
-int trajet::plan()
-{
-    int i=0;
-    QSqlQuery query("SELECT date_t FROM trajet");
-    while (query.next())
-    {
-        QDate date=query.value(0).toDate();
-        if (date==QDate::currentDate())
-        {
-            i++;
-        }
-
-    }
-    return i;
-}

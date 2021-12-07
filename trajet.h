@@ -11,36 +11,34 @@ class trajet
 {
 public:
     trajet();
-    trajet(int,int,int,QString,int,QDate);
-    int getcode();
-    int getdepart();
+    trajet(int,QString,int,QString,int,QDate);
+    int getprix();
+    QString getdepart();
     int getid();
-    int getredandance();
+    int getduree();
     QString getterminus();
     QDate getdate();
 
-
-    void setcode(int);
-    void setdepart(int);
+    void setprix(int);
+    void setdepart(QString);
     void setid(int);
-    void setredandance(int);
+    void setduree(int);
     void setterminus(QString);
     void setdate(QDate);
+
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(int );
-    bool modifier(int ,int,int,QString,int,QDate);
+    bool modifier(int ,QString,int,QString,int,QDate);
 
     QSqlQueryModel * trier(int choix);
     QSqlQueryModel * rechercher(int choix);
     void statistiques(QWidget * w);
-    bool export_msg();
-    int plan();
+    bool export_txt();
 
 private:
-    int code,depart,id,redandance;
-
-    QString terminus;
+    int prix,id,duree;
+    QString terminus,depart;
     QDate date_t;
 
 
