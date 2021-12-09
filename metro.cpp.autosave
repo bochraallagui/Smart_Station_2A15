@@ -146,19 +146,7 @@ void Metro::statistique(QVector<double>* ticks,QVector<QString> *labels)
     }
 
 }
-void Metro::incr(int mat)
-{
-    QString m=QString::number(mat);
-    QSqlQuery q;
-    q.prepare("update metro set nbrassagers=nbrassagers+1 where matricule="+m);
-    q.exec();
-}
-bool Metro::nbplaces(int mat)
-{
-    QString m=QString::number(mat);
-    QSqlQuery q("select * from METRO where nbrplaces=nbrassagers AND matricule="+m);
-    return q.next();
-}
+
 bool Metro ::affecter(int matricule,int id)
 
 {
@@ -181,6 +169,18 @@ bool Metro ::affecter(int matricule,int id)
 
 }
 
-
+void Metro::incr(int mat)
+{
+    QString m=QString::number(mat);
+    QSqlQuery q;
+    q.prepare("update metro set nbrassagers=nbrassagers+1 where matricule="+m);
+    q.exec();
+}
+bool Metro::nbplaces(int mat)
+{
+    QString m=QString::number(mat);
+    QSqlQuery q("select * from METRO where nbrplaces=nbrassagers AND matricule="+m);
+    return q.next();
+}
 
 

@@ -40,6 +40,8 @@ public:
         QSqlQueryModel *recherchemetro(int matricule);
         void statistique(QVector<double>* ticks,QVector<QString> *labels);
         bool affecter(int matricule,int id);
+        void incr(int);
+        bool nbplaces(int);
 };
 
 #endif // METRO_H

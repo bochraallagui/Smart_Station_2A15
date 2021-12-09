@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include"metro.h"
+#include "arduino.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,11 +38,14 @@ private slots:
    void on_pb_pdf_2_clicked();
 
    void on_AFFECTER_clicked();
+   void update_label();
 
 
 private:
    Ui::MainWindow *ui;
    Metro M ;
+   arduino a;
+   QByteArray data;
 };
 
 #endif // MAINWINDOW_H

@@ -24,7 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->tableView->setModel(M.afficher());
   QSqlQueryModel *modell=new QSqlQueryModel();
              modell->setQuery("select NOM from PERSONNEL order by NOM");
-     ui->comboBox->setModel(modell);
+    
+             ui->comboBox->setModel(modell);
      int ret=a.connect_arduino();
            switch (ret) {
            case(0):qDebug()<<"arduino is available and connected to :"<<a.getarduino_port_name();
